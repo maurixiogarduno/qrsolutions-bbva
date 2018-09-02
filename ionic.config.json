@@ -1,0 +1,7 @@
+{
+  "name": "hack-bbva",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}
