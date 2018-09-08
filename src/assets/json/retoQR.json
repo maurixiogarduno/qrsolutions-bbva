@@ -1,0 +1,14 @@
+{
+  "ot":"0001",
+  "dOp":[
+    {"alias": ""},
+    {"cl": "012180004585820842"},
+    {"type": "CL"},
+    {"refn": ""},
+    {"refa": "MAURICIO"},
+    {"amount": ""},
+    {"bank": "00012"},
+    {"country": "MX"},
+    {"currency": "MXN"}
+  ]
+}

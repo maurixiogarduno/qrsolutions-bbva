@@ -6,6 +6,13 @@ import { HomePage } from '../home/home.page';
 import { AboutPage } from '../about/about.page';
 import { ContactPage } from '../contact/contact.page';
 
+//Nuevas Páginas
+import { InicioPage } from '../inicio/inicio.page';
+import { TiendaPage } from '../tienda/tienda.page';
+import { ScannerPage } from '../scanner/scanner.page';
+import { TarjetasPage } from '../tarjetas/tarjetas.page';
+import { VentasPage } from '../ventas/ventas.page';
+
 const routes: Routes = [
   {
     path: 'tabs',
@@ -13,7 +20,7 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: '/tabs/(home:home)',
+        redirectTo: '/tabs/(inicio:inicio)',
         pathMatch: 'full',
       },
       {
@@ -30,12 +37,37 @@ const routes: Routes = [
         path: 'contact',
         outlet: 'contact',
         component: ContactPage
+      },
+      {
+        path: 'inicio',
+        outlet: 'inicio',
+        component: InicioPage
+      },
+      {
+        path: 'tienda',
+        outlet: 'tienda',
+        component: TiendaPage
+      },
+      {
+        path: 'scanner',
+        outlet: 'scanner',
+        component: ScannerPage
+      },
+      {
+        path: 'tarjetas',
+        outlet: 'tarjetas',
+        component: TarjetasPage
+      },
+      {
+        path: 'ventas',
+        outlet: 'ventas',
+        component: VentasPage
       }
     ]
   },
   {
     path: '',
-    redirectTo: '/tabs/(home:home)',
+    redirectTo: '/tabs/(inicio:inicio)',
     pathMatch: 'full'
   }
 ];

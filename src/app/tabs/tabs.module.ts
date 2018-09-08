@@ -11,6 +11,13 @@ import { ContactPageModule } from '../contact/contact.module';
 import { AboutPageModule } from '../about/about.module';
 import { HomePageModule } from '../home/home.module';
 
+//Nuevas Páginas
+import { InicioPageModule } from '../inicio/inicio.module';
+import { TiendaPageModule } from '../tienda/tienda.module';
+import { ScannerPageModule } from '../scanner/scanner.module';
+import { TarjetasPageModule } from '../tarjetas/tarjetas.module';
+import { VentasPageModule } from '../ventas/ventas.module';
+
 @NgModule({
   imports: [
     IonicModule,
@@ -19,7 +26,12 @@ import { HomePageModule } from '../home/home.module';
     TabsPageRoutingModule,
     HomePageModule,
     AboutPageModule,
-    ContactPageModule
+    ContactPageModule,
+    InicioPageModule, //Página Inicio
+    TiendaPageModule, //Página Tienda
+    ScannerPageModule, //Página Scanner
+    TarjetasPageModule, //Página Tarjetas
+    VentasPageModule //Página Ventas
   ],
   declarations: [TabsPage]
 })

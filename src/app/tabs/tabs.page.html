@@ -1,11 +1,28 @@
-<ion-tabs>
-  <ion-tab label="Home" icon="home" href="/tabs/(home:home)">
-    <ion-router-outlet name="home"></ion-router-outlet>
+<ion-tabs mode="ios">
+  <!-- Tab Inicio -->
+  <ion-tab label="Cuenta" icon="ios-wallet" href="/tabs/(inicio:inicio)">
+    <ion-router-outlet name="inicio"></ion-router-outlet>
   </ion-tab>
-  <ion-tab label="About" icon="information-circle" href="/tabs/(about:about)">
-    <ion-router-outlet name="about"></ion-router-outlet>
+
+  <!-- Tab Tienda -->
+  <ion-tab label="Tienda" icon="ios-basket" href="/tabs/(tienda:tienda)">
+    <ion-router-outlet name="tienda"></ion-router-outlet>
   </ion-tab>
-  <ion-tab label="Contact" icon="contacts" href="/tabs/(contact:contact)">
-    <ion-router-outlet name="contact"></ion-router-outlet>
+
+  <!-- Tab Scanner -->
+  <ion-tab label="Scanner" icon="md-qr-scanner" href="/tabs/(scanner:scanner)">
+    <ion-router-outlet name="scanner"></ion-router-outlet>
   </ion-tab>
+
+  <!-- Tab Tarjetas -->
+  <ion-tab label="Tarjetas" icon="ios-card" href="/tabs/(tarjetas:tarjetas)">
+    <ion-router-outlet name="tarjetas"></ion-router-outlet>
+  </ion-tab>
+
+  <!-- Tab Ventas -->
+  <ion-tab label="Ventas" icon="md-trending-up" href="/tabs/(ventas:ventas)">
+    <ion-router-outlet name="ventas"></ion-router-outlet>
+  </ion-tab>
+
+
 </ion-tabs>
