@@ -17,16 +17,4 @@ export class VentasPage implements OnInit {
   ngOnInit() {
   }
 
-  irAVistaDetalleExistente(){
-
-  }
-
-  navigateToHome(){
-  this.router.navigate(['/home']);
-  }
-
-  irAVistaDetalle(){
-    alert("funcionado");
-  }
-
 }

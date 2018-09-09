@@ -7,7 +7,7 @@
 <ion-content padding>
 
   <ion-list>
-  <ion-item *ngFor="let lugar of lugares" (click)="irAVistaDetalleExistente">
+  <ion-item *ngFor="let lugar of lugares">
     <ion-label>
       <h2>{{lugar.nombre}}</h2>
       <h3>{{lugar.direccion}}</h3>
@@ -17,7 +17,7 @@
 </ion-list>
 
 <ion-fab class="animated pulse" vertical="bottom" horizontal="center" slot="fixed">
-<ion-fab-button color="light" mode="ios" (click)="navigateToHome()">
+<ion-fab-button color="light" mode="ios">
   <ion-icon name="add"></ion-icon>
 </ion-fab-button>
 </ion-fab>

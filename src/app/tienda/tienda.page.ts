@@ -7,65 +7,47 @@ import { BarcodeScanner, BarcodeScannerOptions } from '@ionic-native/barcode-sca
   styleUrls: ['./tienda.page.scss'],
 })
 export class TiendaPage implements OnInit {
+  //Variables para JSON Model:
 
-  qrData = "0"; //Para integrar al createdCode
-  createdCode = null; //Crea el QR
+  jsonAmount = "0";
 
-  //Variables JSON QR
-  jsonQRot = "0001";
-  jsonQRalias = "Alias";
-  jsonQRcl = "012180004585820842";
-  jsonQRtype = "CL";
-  jsonQRrefn = "0";
-  jsonQRrefa = "MAURICIO";
-  jsonQRamount = "0";
-  jsonQRbank = "00012";
-  jsonQRcountry = "MX";
-  jsonQRcurrency = "MXN";
-  //Fin de Variable JSON QR
-
-
-  //JSON QR
-  obj = {
-    "ot": this.jsonQRot,
+  //JSON Model:
+  jsonModel = {
+    "ot":"0001",
     "dOp":[
-      {"alias": this.jsonQRalias},
-      {"cl": this.jsonQRcl},
-      {"type": this.jsonQRtype},
-      {"refn": this.jsonQRrefn},
-      {"refa": this.jsonQRrefa},
-      {"amount": this.qrData},
-      {"bank": this.jsonQRbank},
-      {"country": this.jsonQRcountry},
-      {"currency": this.jsonQRcurrency}
+      {"alias": ""},
+      {"cl": "012180004585820842"},
+      {"type": "CL"},
+      {"refn": ""},
+      {"refa": "MAURICIO"},
+      {"amount": this.jsonAmount},
+      {"bank": "00012"},
+      {"country": "MX"},
+      {"currency": "MXN"}
     ]
   };
-  qrDataJson = JSON.stringify(this.obj);
-  //Fin de JSON QR
+
+  //CONVERCION DE JSON A STRING:
+  jsonLayout = JSON.stringify(this.jsonModel);
 
 
-  qrURL = this.qrDataJson;
-  User = "000001/";
+  qrData = "0"; // El QR que se genera
+  createdCode = "0"; // El pago que se genera
 
-  qrCode = this.qrURL.concat(this.User)
+  qrURL = this.jsonLayout;  // URL DEL QR
+  qrCode = this.qrURL; // Layout Final Del QR
 
-
-
-
-  constructor(private barcodeScanner: BarcodeScanner) {
-
-  }
+  constructor(private barcodeScanner: BarcodeScanner) {}
 
   ngOnInit() {
   }
 
-
-
-
+  //Funcion que recar el QR generado
   createCode() {
     this.createdCode = this.qrData;
   }
 
+  //Funcion para escanear un codigo de barras
   scanCode() {
     this.barcodeScanner.scan().then(barcodeData => {
       this.createdCode = barcodeData.text;
@@ -74,22 +56,76 @@ export class TiendaPage implements OnInit {
     });
   }
 
+
+
+
+
   //Control de Págo
   oneButton(){
   if (this.qrData.length > 4){
     this.createdCode = this.qrData.slice(0,5);
-    this.qrCode = this.myJSON.concat(this.createdCode)//Crea un QR Completo
+    //Actualiza el QR con amount
+    this.jsonModel = {
+      "ot":"0001",
+      "dOp":[
+        {"alias": ""},
+        {"cl": "012180004585820842"},
+        {"type": "CL"},
+        {"refn": ""},
+        {"refa": "MAURICIO"},
+        {"amount": this.createdCode},
+        {"bank": "00012"},
+        {"country": "MX"},
+        {"currency": "MXN"}
+      ]
+    };
+    this.jsonLayout = JSON.stringify(this.jsonModel);
+    this.qrCode = this.jsonLayout;
   }
   else{
     if (this.qrData == "0"){
       this.qrData = "1"
       this.createdCode = this.qrData;
-      this.qrCode = this.qrURL.concat(this.createdCode) //Crea un QR Completo
+      // this.qrCode = this.qrURL.concat(this.createdCode) //Crea un QR Completo
+
+      //Actualiza el QR con amount
+      this.jsonModel = {
+        "ot":"0001",
+        "dOp":[
+          {"alias": ""},
+          {"cl": "012180004585820842"},
+          {"type": "CL"},
+          {"refn": ""},
+          {"refa": "MAURICIO"},
+          {"amount": this.createdCode},
+          {"bank": "00012"},
+          {"country": "MX"},
+          {"currency": "MXN"}
+        ]
+      };
+      this.jsonLayout = JSON.stringify(this.jsonModel);
+      this.qrCode = this.jsonLayout;
     }
     else{
       this.qrData = this.qrData + "1"
       this.createdCode = this.qrData;
-      this.qrCode = this.qrURL.concat(this.createdCode) //Crea un QR Completo
+      //Actualiza el QR con amount
+      this.jsonModel = {
+        "ot":"0001",
+        "dOp":[
+          {"alias": ""},
+          {"cl": "012180004585820842"},
+          {"type": "CL"},
+          {"refn": ""},
+          {"refa": "MAURICIO"},
+          {"amount": this.createdCode},
+          {"bank": "00012"},
+          {"country": "MX"},
+          {"currency": "MXN"}
+        ]
+      };
+      this.jsonLayout = JSON.stringify(this.jsonModel);
+      this.qrCode = this.jsonLayout;
     }
   }
   }
@@ -97,18 +133,66 @@ export class TiendaPage implements OnInit {
   twoButton(){
   if (this.qrData.length > 4){
     this.createdCode = this.qrData.slice(0,5);
-    this.qrCode = this.qrURL.concat(this.createdCode) //Crea un QR Completo
+    //Actualiza el QR con amount
+    this.jsonModel = {
+      "ot":"0001",
+      "dOp":[
+        {"alias": ""},
+        {"cl": "012180004585820842"},
+        {"type": "CL"},
+        {"refn": ""},
+        {"refa": "MAURICIO"},
+        {"amount": this.createdCode},
+        {"bank": "00012"},
+        {"country": "MX"},
+        {"currency": "MXN"}
+      ]
+    };
+    this.jsonLayout = JSON.stringify(this.jsonModel);
+    this.qrCode = this.jsonLayout;
   }
   else{
     if (this.qrData == "0"){
       this.qrData = "2"
       this.createdCode = this.qrData;
-      this.qrCode = this.qrURL.concat(this.createdCode) //Crea un QR Completo
+      //Actualiza el QR con amount
+      this.jsonModel = {
+        "ot":"0001",
+        "dOp":[
+          {"alias": ""},
+          {"cl": "012180004585820842"},
+          {"type": "CL"},
+          {"refn": ""},
+          {"refa": "MAURICIO"},
+          {"amount": this.createdCode},
+          {"bank": "00012"},
+          {"country": "MX"},
+          {"currency": "MXN"}
+        ]
+      };
+      this.jsonLayout = JSON.stringify(this.jsonModel);
+      this.qrCode = this.jsonLayout;
     }
     else{
       this.qrData = this.qrData + "2"
       this.createdCode = this.qrData;
-      this.qrCode = this.qrURL.concat(this.createdCode) //Crea un QR Completo
+      //Actualiza el QR con amount
+      this.jsonModel = {
+        "ot":"0001",
+        "dOp":[
+          {"alias": ""},
+          {"cl": "012180004585820842"},
+          {"type": "CL"},
+          {"refn": ""},
+          {"refa": "MAURICIO"},
+          {"amount": this.createdCode},
+          {"bank": "00012"},
+          {"country": "MX"},
+          {"currency": "MXN"}
+        ]
+      };
+      this.jsonLayout = JSON.stringify(this.jsonModel);
+      this.qrCode = this.jsonLayout;
     }
   }
   }
@@ -116,18 +200,66 @@ export class TiendaPage implements OnInit {
   threeButton(){
   if (this.qrData.length > 4){
     this.createdCode = this.qrData.slice(0,5);
-    this.qrCode = this.qrURL.concat(this.createdCode) //Crea un QR Completo
+    //Actualiza el QR con amount
+    this.jsonModel = {
+      "ot":"0001",
+      "dOp":[
+        {"alias": ""},
+        {"cl": "012180004585820842"},
+        {"type": "CL"},
+        {"refn": ""},
+        {"refa": "MAURICIO"},
+        {"amount": this.createdCode},
+        {"bank": "00012"},
+        {"country": "MX"},
+        {"currency": "MXN"}
+      ]
+    };
+    this.jsonLayout = JSON.stringify(this.jsonModel);
+    this.qrCode = this.jsonLayout;
   }
   else{
     if (this.qrData == "0"){
       this.qrData = "3"
       this.createdCode = this.qrData;
-      this.qrCode = this.qrURL.concat(this.createdCode) //Crea un QR Completo
+      //Actualiza el QR con amount
+      this.jsonModel = {
+        "ot":"0001",
+        "dOp":[
+          {"alias": ""},
+          {"cl": "012180004585820842"},
+          {"type": "CL"},
+          {"refn": ""},
+          {"refa": "MAURICIO"},
+          {"amount": this.createdCode},
+          {"bank": "00012"},
+          {"country": "MX"},
+          {"currency": "MXN"}
+        ]
+      };
+      this.jsonLayout = JSON.stringify(this.jsonModel);
+      this.qrCode = this.jsonLayout;
     }
     else{
       this.qrData = this.qrData + "3"
       this.createdCode = this.qrData;
-      this.qrCode = this.qrURL.concat(this.createdCode) //Crea un QR Completo
+      //Actualiza el QR con amount
+      this.jsonModel = {
+        "ot":"0001",
+        "dOp":[
+          {"alias": ""},
+          {"cl": "012180004585820842"},
+          {"type": "CL"},
+          {"refn": ""},
+          {"refa": "MAURICIO"},
+          {"amount": this.createdCode},
+          {"bank": "00012"},
+          {"country": "MX"},
+          {"currency": "MXN"}
+        ]
+      };
+      this.jsonLayout = JSON.stringify(this.jsonModel);
+      this.qrCode = this.jsonLayout;
     }
   }
   }
@@ -135,18 +267,66 @@ export class TiendaPage implements OnInit {
   fourButton(){
   if (this.qrData.length > 4){
     this.createdCode = this.qrData.slice(0,5);
-    this.qrCode = this.qrURL.concat(this.createdCode) //Crea un QR Completo
+    //Actualiza el QR con amount
+    this.jsonModel = {
+      "ot":"0001",
+      "dOp":[
+        {"alias": ""},
+        {"cl": "012180004585820842"},
+        {"type": "CL"},
+        {"refn": ""},
+        {"refa": "MAURICIO"},
+        {"amount": this.createdCode},
+        {"bank": "00012"},
+        {"country": "MX"},
+        {"currency": "MXN"}
+      ]
+    };
+    this.jsonLayout = JSON.stringify(this.jsonModel);
+    this.qrCode = this.jsonLayout;
   }
   else{
     if (this.qrData == "0"){
       this.qrData = "4"
       this.createdCode = this.qrData;
-      this.qrCode = this.qrURL.concat(this.createdCode) //Crea un QR Completo
+      //Actualiza el QR con amount
+      this.jsonModel = {
+        "ot":"0001",
+        "dOp":[
+          {"alias": ""},
+          {"cl": "012180004585820842"},
+          {"type": "CL"},
+          {"refn": ""},
+          {"refa": "MAURICIO"},
+          {"amount": this.createdCode},
+          {"bank": "00012"},
+          {"country": "MX"},
+          {"currency": "MXN"}
+        ]
+      };
+      this.jsonLayout = JSON.stringify(this.jsonModel);
+      this.qrCode = this.jsonLayout;
     }
     else{
       this.qrData = this.qrData + "4"
       this.createdCode = this.qrData;
-      this.qrCode = this.qrURL.concat(this.createdCode) //Crea un QR Completo
+      //Actualiza el QR con amount
+      this.jsonModel = {
+        "ot":"0001",
+        "dOp":[
+          {"alias": ""},
+          {"cl": "012180004585820842"},
+          {"type": "CL"},
+          {"refn": ""},
+          {"refa": "MAURICIO"},
+          {"amount": this.createdCode},
+          {"bank": "00012"},
+          {"country": "MX"},
+          {"currency": "MXN"}
+        ]
+      };
+      this.jsonLayout = JSON.stringify(this.jsonModel);
+      this.qrCode = this.jsonLayout;
     }
   }
   }
@@ -154,18 +334,66 @@ export class TiendaPage implements OnInit {
   fiveButton(){
   if (this.qrData.length > 4){
     this.createdCode = this.qrData.slice(0,5);
-    this.qrCode = this.qrURL.concat(this.createdCode) //Crea un QR Completo
+    //Actualiza el QR con amount
+    this.jsonModel = {
+      "ot":"0001",
+      "dOp":[
+        {"alias": ""},
+        {"cl": "012180004585820842"},
+        {"type": "CL"},
+        {"refn": ""},
+        {"refa": "MAURICIO"},
+        {"amount": this.createdCode},
+        {"bank": "00012"},
+        {"country": "MX"},
+        {"currency": "MXN"}
+      ]
+    };
+    this.jsonLayout = JSON.stringify(this.jsonModel);
+    this.qrCode = this.jsonLayout;
   }
   else{
     if (this.qrData == "0"){
       this.qrData = "5"
       this.createdCode = this.qrData;
-      this.qrCode = this.qrURL.concat(this.createdCode) //Crea un QR Completo
+      //Actualiza el QR con amount
+      this.jsonModel = {
+        "ot":"0001",
+        "dOp":[
+          {"alias": ""},
+          {"cl": "012180004585820842"},
+          {"type": "CL"},
+          {"refn": ""},
+          {"refa": "MAURICIO"},
+          {"amount": this.createdCode},
+          {"bank": "00012"},
+          {"country": "MX"},
+          {"currency": "MXN"}
+        ]
+      };
+      this.jsonLayout = JSON.stringify(this.jsonModel);
+      this.qrCode = this.jsonLayout;
     }
     else{
       this.qrData = this.qrData + "5"
       this.createdCode = this.qrData;
-      this.qrCode = this.qrURL.concat(this.createdCode) //Crea un QR Completo
+      //Actualiza el QR con amount
+      this.jsonModel = {
+        "ot":"0001",
+        "dOp":[
+          {"alias": ""},
+          {"cl": "012180004585820842"},
+          {"type": "CL"},
+          {"refn": ""},
+          {"refa": "MAURICIO"},
+          {"amount": this.createdCode},
+          {"bank": "00012"},
+          {"country": "MX"},
+          {"currency": "MXN"}
+        ]
+      };
+      this.jsonLayout = JSON.stringify(this.jsonModel);
+      this.qrCode = this.jsonLayout;
     }
   }
   }
@@ -173,18 +401,66 @@ export class TiendaPage implements OnInit {
   sixButton(){
   if (this.qrData.length > 4){
     this.createdCode = this.qrData.slice(0,5);
-    this.qrCode = this.qrURL.concat(this.createdCode) //Crea un QR Completo
+    //Actualiza el QR con amount
+    this.jsonModel = {
+      "ot":"0001",
+      "dOp":[
+        {"alias": ""},
+        {"cl": "012180004585820842"},
+        {"type": "CL"},
+        {"refn": ""},
+        {"refa": "MAURICIO"},
+        {"amount": this.createdCode},
+        {"bank": "00012"},
+        {"country": "MX"},
+        {"currency": "MXN"}
+      ]
+    };
+    this.jsonLayout = JSON.stringify(this.jsonModel);
+    this.qrCode = this.jsonLayout;
   }
   else{
     if (this.qrData == "0"){
       this.qrData = "6"
       this.createdCode = this.qrData;
-      this.qrCode = this.qrURL.concat(this.createdCode) //Crea un QR Completo
+      //Actualiza el QR con amount
+      this.jsonModel = {
+        "ot":"0001",
+        "dOp":[
+          {"alias": ""},
+          {"cl": "012180004585820842"},
+          {"type": "CL"},
+          {"refn": ""},
+          {"refa": "MAURICIO"},
+          {"amount": this.createdCode},
+          {"bank": "00012"},
+          {"country": "MX"},
+          {"currency": "MXN"}
+        ]
+      };
+      this.jsonLayout = JSON.stringify(this.jsonModel);
+      this.qrCode = this.jsonLayout;
     }
     else{
       this.qrData = this.qrData + "6"
       this.createdCode = this.qrData;
-      this.qrCode = this.qrURL.concat(this.createdCode) //Crea un QR Completo
+      //Actualiza el QR con amount
+      this.jsonModel = {
+        "ot":"0001",
+        "dOp":[
+          {"alias": ""},
+          {"cl": "012180004585820842"},
+          {"type": "CL"},
+          {"refn": ""},
+          {"refa": "MAURICIO"},
+          {"amount": this.createdCode},
+          {"bank": "00012"},
+          {"country": "MX"},
+          {"currency": "MXN"}
+        ]
+      };
+      this.jsonLayout = JSON.stringify(this.jsonModel);
+      this.qrCode = this.jsonLayout;
     }
   }
   }
@@ -192,18 +468,66 @@ export class TiendaPage implements OnInit {
   sevenButton(){
   if (this.qrData.length > 4){
     this.createdCode = this.qrData.slice(0,5);
-    this.qrCode = this.qrURL.concat(this.createdCode) //Crea un QR Completo
+    //Actualiza el QR con amount
+    this.jsonModel = {
+      "ot":"0001",
+      "dOp":[
+        {"alias": ""},
+        {"cl": "012180004585820842"},
+        {"type": "CL"},
+        {"refn": ""},
+        {"refa": "MAURICIO"},
+        {"amount": this.createdCode},
+        {"bank": "00012"},
+        {"country": "MX"},
+        {"currency": "MXN"}
+      ]
+    };
+    this.jsonLayout = JSON.stringify(this.jsonModel);
+    this.qrCode = this.jsonLayout;
   }
   else{
     if (this.qrData == "0"){
       this.qrData = "7"
       this.createdCode = this.qrData;
-      this.qrCode = this.qrURL.concat(this.createdCode) //Crea un QR Completo
+      //Actualiza el QR con amount
+      this.jsonModel = {
+        "ot":"0001",
+        "dOp":[
+          {"alias": ""},
+          {"cl": "012180004585820842"},
+          {"type": "CL"},
+          {"refn": ""},
+          {"refa": "MAURICIO"},
+          {"amount": this.createdCode},
+          {"bank": "00012"},
+          {"country": "MX"},
+          {"currency": "MXN"}
+        ]
+      };
+      this.jsonLayout = JSON.stringify(this.jsonModel);
+      this.qrCode = this.jsonLayout;
     }
     else{
       this.qrData = this.qrData + "7"
       this.createdCode = this.qrData;
-      this.qrCode = this.qrURL.concat(this.createdCode) //Crea un QR Completo
+      //Actualiza el QR con amount
+      this.jsonModel = {
+        "ot":"0001",
+        "dOp":[
+          {"alias": ""},
+          {"cl": "012180004585820842"},
+          {"type": "CL"},
+          {"refn": ""},
+          {"refa": "MAURICIO"},
+          {"amount": this.createdCode},
+          {"bank": "00012"},
+          {"country": "MX"},
+          {"currency": "MXN"}
+        ]
+      };
+      this.jsonLayout = JSON.stringify(this.jsonModel);
+      this.qrCode = this.jsonLayout;
     }
   }
   }
@@ -211,18 +535,66 @@ export class TiendaPage implements OnInit {
   eightButton(){
   if (this.qrData.length > 4){
     this.createdCode = this.qrData.slice(0,5);
-    this.qrCode = this.qrURL.concat(this.createdCode) //Crea un QR Completo
+    //Actualiza el QR con amount
+    this.jsonModel = {
+      "ot":"0001",
+      "dOp":[
+        {"alias": ""},
+        {"cl": "012180004585820842"},
+        {"type": "CL"},
+        {"refn": ""},
+        {"refa": "MAURICIO"},
+        {"amount": this.createdCode},
+        {"bank": "00012"},
+        {"country": "MX"},
+        {"currency": "MXN"}
+      ]
+    };
+    this.jsonLayout = JSON.stringify(this.jsonModel);
+    this.qrCode = this.jsonLayout;
   }
   else{
     if (this.qrData == "0"){
       this.qrData = "8"
       this.createdCode = this.qrData;
-      this.qrCode = this.qrURL.concat(this.createdCode) //Crea un QR Completo
+      //Actualiza el QR con amount
+      this.jsonModel = {
+        "ot":"0001",
+        "dOp":[
+          {"alias": ""},
+          {"cl": "012180004585820842"},
+          {"type": "CL"},
+          {"refn": ""},
+          {"refa": "MAURICIO"},
+          {"amount": this.createdCode},
+          {"bank": "00012"},
+          {"country": "MX"},
+          {"currency": "MXN"}
+        ]
+      };
+      this.jsonLayout = JSON.stringify(this.jsonModel);
+      this.qrCode = this.jsonLayout;
     }
     else{
       this.qrData = this.qrData + "8"
       this.createdCode = this.qrData;
-      this.qrCode = this.qrURL.concat(this.createdCode) //Crea un QR Completo
+      //Actualiza el QR con amount
+      this.jsonModel = {
+        "ot":"0001",
+        "dOp":[
+          {"alias": ""},
+          {"cl": "012180004585820842"},
+          {"type": "CL"},
+          {"refn": ""},
+          {"refa": "MAURICIO"},
+          {"amount": this.createdCode},
+          {"bank": "00012"},
+          {"country": "MX"},
+          {"currency": "MXN"}
+        ]
+      };
+      this.jsonLayout = JSON.stringify(this.jsonModel);
+      this.qrCode = this.jsonLayout;
     }
   }
   }
@@ -230,18 +602,66 @@ export class TiendaPage implements OnInit {
   nineButton(){
   if (this.qrData.length > 4){
     this.createdCode = this.qrData.slice(0,5);
-    this.qrCode = this.qrURL.concat(this.createdCode) //Crea un QR Completo
+    //Actualiza el QR con amount
+    this.jsonModel = {
+      "ot":"0001",
+      "dOp":[
+        {"alias": ""},
+        {"cl": "012180004585820842"},
+        {"type": "CL"},
+        {"refn": ""},
+        {"refa": "MAURICIO"},
+        {"amount": this.createdCode},
+        {"bank": "00012"},
+        {"country": "MX"},
+        {"currency": "MXN"}
+      ]
+    };
+    this.jsonLayout = JSON.stringify(this.jsonModel);
+    this.qrCode = this.jsonLayout;
   }
   else{
     if (this.qrData == "0"){
       this.qrData = "9"
       this.createdCode = this.qrData;
-      this.qrCode = this.qrURL.concat(this.createdCode) //Crea un QR Completo
+      //Actualiza el QR con amount
+      this.jsonModel = {
+        "ot":"0001",
+        "dOp":[
+          {"alias": ""},
+          {"cl": "012180004585820842"},
+          {"type": "CL"},
+          {"refn": ""},
+          {"refa": "MAURICIO"},
+          {"amount": this.createdCode},
+          {"bank": "00012"},
+          {"country": "MX"},
+          {"currency": "MXN"}
+        ]
+      };
+      this.jsonLayout = JSON.stringify(this.jsonModel);
+      this.qrCode = this.jsonLayout;
     }
     else{
       this.qrData = this.qrData + "9"
       this.createdCode = this.qrData;
-      this.qrCode = this.qrURL.concat(this.createdCode) //Crea un QR Completo
+      //Actualiza el QR con amount
+      this.jsonModel = {
+        "ot":"0001",
+        "dOp":[
+          {"alias": ""},
+          {"cl": "012180004585820842"},
+          {"type": "CL"},
+          {"refn": ""},
+          {"refa": "MAURICIO"},
+          {"amount": this.createdCode},
+          {"bank": "00012"},
+          {"country": "MX"},
+          {"currency": "MXN"}
+        ]
+      };
+      this.jsonLayout = JSON.stringify(this.jsonModel);
+      this.qrCode = this.jsonLayout;
     }
   }
   }
@@ -249,18 +669,66 @@ export class TiendaPage implements OnInit {
   zeroButton(){
   if (this.qrData.length > 4){
     this.createdCode = this.qrData.slice(0,5);
-    this.qrCode = this.qrURL.concat(this.createdCode) //Crea un QR Completo
+    //Actualiza el QR con amount
+    this.jsonModel = {
+      "ot":"0001",
+      "dOp":[
+        {"alias": ""},
+        {"cl": "012180004585820842"},
+        {"type": "CL"},
+        {"refn": ""},
+        {"refa": "MAURICIO"},
+        {"amount": this.createdCode},
+        {"bank": "00012"},
+        {"country": "MX"},
+        {"currency": "MXN"}
+      ]
+    };
+    this.jsonLayout = JSON.stringify(this.jsonModel);
+    this.qrCode = this.jsonLayout;
   }
   else{
     if (this.qrData == "0"){
       this.qrData = "0"
       this.createdCode = this.qrData;
-      this.qrCode = this.qrURL.concat(this.createdCode) //Crea un QR Completo
+      //Actualiza el QR con amount
+      this.jsonModel = {
+        "ot":"0001",
+        "dOp":[
+          {"alias": ""},
+          {"cl": "012180004585820842"},
+          {"type": "CL"},
+          {"refn": ""},
+          {"refa": "MAURICIO"},
+          {"amount": this.createdCode},
+          {"bank": "00012"},
+          {"country": "MX"},
+          {"currency": "MXN"}
+        ]
+      };
+      this.jsonLayout = JSON.stringify(this.jsonModel);
+      this.qrCode = this.jsonLayout;
     }
     else{
       this.qrData = this.qrData + "0"
       this.createdCode = this.qrData;
-      this.qrCode = this.qrURL.concat(this.createdCode) //Crea un QR Completo
+      //Actualiza el QR con amount
+      this.jsonModel = {
+        "ot":"0001",
+        "dOp":[
+          {"alias": ""},
+          {"cl": "012180004585820842"},
+          {"type": "CL"},
+          {"refn": ""},
+          {"refa": "MAURICIO"},
+          {"amount": this.createdCode},
+          {"bank": "00012"},
+          {"country": "MX"},
+          {"currency": "MXN"}
+        ]
+      };
+      this.jsonLayout = JSON.stringify(this.jsonModel);
+      this.qrCode = this.jsonLayout;
     }
   }
   }
@@ -268,6 +736,23 @@ export class TiendaPage implements OnInit {
   cleanButton(){
     this.qrData = "0"
     this.createdCode = this.qrData;
-    this.qrCode = this.qrURL.concat(this.createdCode) //Crea un QR Completo
+    //Actualiza el QR con amount
+    this.jsonModel = {
+      "ot":"0001",
+      "dOp":[
+        {"alias": ""},
+        {"cl": "012180004585820842"},
+        {"type": "CL"},
+        {"refn": ""},
+        {"refa": "MAURICIO"},
+        {"amount": this.createdCode},
+        {"bank": "00012"},
+        {"country": "MX"},
+        {"currency": "MXN"}
+      ]
+    };
+    this.jsonLayout = JSON.stringify(this.jsonModel);
+    this.qrCode = this.jsonLayout;
   }
+  //Fin del control de pago
 }
